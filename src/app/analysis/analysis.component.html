@@ -1,0 +1,8 @@
+<h1>Analyze Page</h1>
+<form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+  <input type="file" name="file" (change)="onFileSelected($event)">
+  <button type="submit">Upload</button>
+</form>
+<div *ngIf="analysisResult">
+  <p>The analysis result is: {{ analysisResult }}</p>
+</div>
