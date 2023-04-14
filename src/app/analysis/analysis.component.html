@@ -1,8 +1,59 @@
-<h1>Analyze Page</h1>
-<form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-  <input type="file" name="file" (change)="onFileSelected($event)">
-  <button type="submit">Upload</button>
-</form>
-<div *ngIf="analysisResult">
-  <p>The analysis result is: {{ analysisResult }}</p>
+<div class="container">
+  <h1>Analyze Page</h1>
+  <div class="analysis">
+    <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <input type="file" name="file" (change)="onFileSelected($event)">
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+  <div class="result" *ngIf="resultReceived">
+      <p>The analysis result is: </p>
+      <table>
+        <tr>
+          <th>Инвестиционный анализ</th>
+          <th>Условие</th>
+          <th>Значение</th>
+          <th>Решение</th>
+        </tr>
+        <tr>
+          <th>Чистая текущая стоимость (NPV)</th>
+          <th *ngIf="analysisResult.verdict_npv == 1">{{analysisResult['npv']+'>'+0}}</th>
+          <th *ngIf="analysisResult.verdict_npv == 1">Прибыльный проект</th>
+          <th *ngIf="analysisResult.verdict_npv == 1">Принять проект</th>
+          <th *ngIf="analysisResult.verdict_npv == 0">{{analysisResult['npv']+'='+0}}</th>
+          <th *ngIf="analysisResult.verdict_npv == 0">Прибыльный проект</th>
+          <th *ngIf="analysisResult.verdict_npv == 0">Выберите другие критерии для решения</th>
+          <th *ngIf="analysisResult.verdict_npv == -1">{{analysisResult['npv']+'<'+0}}</th>
+          <th *ngIf="analysisResult.verdict_npv == -1">Неприбыльный проект</th>
+          <th *ngIf="analysisResult.verdict_npv == -1">Отклонить проект</th>
+        </tr>
+
+        <tr>
+          <th>Индекс прибыльности (PI)</th>
+          <th *ngIf="analysisResult.verdict_pi == 1">{{analysisResult.pi+'>'+0}}</th>
+          <th *ngIf="analysisResult.verdict_pi == 1">Прибыльный проект</th>
+          <th *ngIf="analysisResult.verdict_pi == 1">Принять проект</th>
+          <th *ngIf="analysisResult.verdict_pi == 0">{{analysisResult.pi+'<'+0}}</th>
+          <th *ngIf="analysisResult.verdict_pi == 0">Неприбыльный проект</th>
+          <th *ngIf="analysisResult.verdict_pi == 0">Отклонить проект</th>
+        </tr>
+        <tr>
+          <th>Внутренняя норма доходности (IRR)</th>
+          <th *ngIf="analysisResult.verdict_irr == 1">{{analysisResult.irr+'>'+0}}</th>
+          <th *ngIf="analysisResult.verdict_irr == 1">Прибыльный проект</th>
+          <th *ngIf="analysisResult.verdict_irr == 1">Принять проект</th>
+          <th *ngIf="analysisResult.verdict_irr == 0">{{analysisResult.irr+'<'+0}}</th>
+          <th *ngIf="analysisResult.verdict_irr == 0">Неприбыльный проект</th>
+          <th *ngIf="analysisResult.verdict_irr == 0">Отклонить проект</th>
+        </tr>
+        <tr>
+          <th>Срок окупаемости с учетом скидки (PBPD)</th>
+          <th>{{analysisResult.pbpd}}</th>
+        </tr>
+      </table>
+      <p>Рекомендация: {{analysisResult.recommendations}}</p>
+      <p>Доля долга в структуре капитала: {{analysisResult.debt_ratio}}</p>
+      <p>Доля собственного капитала в структуре капитала: {{analysisResult.equity_ratio}}</p>
+    </div>
 </div>
+

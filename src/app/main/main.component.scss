@@ -1,0 +1,28 @@
+.container {
+  height: 90vh;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.container h1 {
+  grid-column: 2;
+  justify-self: center;
+  align-self: center;
+}
+
+.button-container {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+}
+.button-container button {
+  width: 150px;
+  height: 75px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  margin: auto;
+  font-weight: bold;
+  font-size: 2.5vh;
+}
